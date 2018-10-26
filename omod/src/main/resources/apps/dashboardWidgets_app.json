@@ -49,6 +49,31 @@
     ]
   },
   {
+    "id": "coreapps.testResults",
+    "instanceOf": "coreapps.template.dashboardWidget",
+    "description": "coreapps.testResults.app.description",
+    "order": 10,
+    "config": {
+      "widget": "testresults",
+      "icon": "icon-user-md",
+      "label": "TEST RESULTS SUMMARY",
+      "concepts": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "maxRecords": "5",
+      "maxAge": "50y"
+    },
+    "extensions": [
+      {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
+        "appId": "coreapps.testResults",
+        "extensionPointId": "patientDashboard.firstColumnFragments",
+        "extensionParams": {
+          "provider": "${project.parent.artifactId}",
+          "fragment": "dashboardwidgets/dashboardWidget"
+        }
+      }
+    ]
+  },
+  {
     "id": "coreapps.visitByEncounterType",
     "instanceOf": "coreapps.template.dashboardWidget",
     "description": "coreapps.visitByEncounterType.app.description",
