@@ -9,13 +9,25 @@ export default class TestResultsController {
         this.order = 'desc';
         this.concepts = [];
         this.encounters = [];
+        this.obss= [] ;
+        this.masterDataList = [] ;
+        this.masterData = {} ;
+        masterData = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
 
         this.openmrsRest.setBaseAppPath("/coreapps");
 
         this.fetchConcepts();
         this.fetchEncounters();
+        this.fetchObs();
+        
+       
     }
 
+    
+   
+    
+    
+    
     fetchConcepts() {
         this.concepts = this.getConfigConceptsAsArray(this.config.concepts);
         for(let i = 0; i < this.concepts.length; i++) {
@@ -26,6 +38,57 @@ export default class TestResultsController {
         }
     }
 
+    
+    fetchObs() {
+    	
+    
+    let concepts = this.config.concepts.split(",");
+    for (let i = 0; i < concepts.length; i++) {
+        let concept = concepts[i];
+  
+        this.openmrsRest.list('obs', {
+            patient: this.config.patientUuid,
+            v: 'full',
+            concept: concept
+        }).then((resp) => {
+        	
+        	console.log("responseFromObs="+JSON.stringify(resp));
+        	if(resp.results!=null)
+        		{
+        		for(let j=0 ; j<resp.results.length  ; j++ )
+        		{
+        			masterData.conceptuuId = resp.results[j].concept.uuid ;
+        			masterData.conceptName = resp.results[j].concept.display ;
+        			masterData.obsValue =  resp.results[j].value ; 
+        			masterData.createdDateObs =  resp.results[j].obsDatetime
+        		
+        			masterDataList.push(masterData) ;
+        		}
+        		
+        		
+        		}
+        	
+        });
+     
+    	}
+    }
+        
+        
+        
+        
+/*    fetchObs() {
+      
+           for(let i = 0; i < this.concepts.length; i++) {
+               this.openmrsRest.getFull("obs/").then((obs) => {
+            	   console.log("obsFromRestMy"+JSON.stringify(Jsobs));
+                   this.obss = obs;
+               });
+           }
+       }
+
+   */ 
+    
+    
     fetchEncounters() {
         this.openmrsRest.get("encounter", {
             patient: this.config.patientUuid,

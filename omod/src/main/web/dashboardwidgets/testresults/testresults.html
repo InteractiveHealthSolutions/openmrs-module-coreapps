@@ -15,3 +15,26 @@
     </tbody>
 </table>
 <p ng-if="$ctrl.encounters.length == 0">None</p>
+
+
+
+<table ng-if="$ctrl.concepts.length != 0">
+    <thead>
+        <tr>
+            <th>Concepts</th>
+            <th ng-repeat="concept in $ctrl.concepts">{{concept.display}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="masterData in $ctrl.masterDataList ">
+             <td>   {{masterData.value}} </td> 
+         		
+        </tr>
+    </tbody>
+</table>
+<p ng-if="$ctrl.concepts.length == 0">None Concepts</p>
+
+
+
+
+
