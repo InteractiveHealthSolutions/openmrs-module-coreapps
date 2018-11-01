@@ -10,83 +10,246 @@ export default class TestResultsController {
         this.concepts = [];
         this.encounters = [];
         this.obss= [] ;
-        this.masterDataList = [] ;
-        this.masterData = {} ;
-        masterData = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
-
+      
+        this.masterDataList =  [] ;
+        this.masterTargetDataList=[];
+    //    this.masterData = { "conceptName" : ""  , "dataList" :  []   }  ;
+     //   this.dataList = [] ;
+     //   this.data = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
+        	
+              
         this.openmrsRest.setBaseAppPath("/coreapps");
 
         this.fetchConcepts();
         this.fetchEncounters();
+        this.fetchTarget();
         this.fetchObs();
         
-       
     }
 
     
-   
-    
-    
-    
+     
     fetchConcepts() {
-        this.concepts = this.getConfigConceptsAsArray(this.config.concepts);
+    	
+    	  console.log("fetchConcepts start");
+    	
+        this.concepts = this.config.concepts.split(",");
+        console.log("fetchConcepts Concepts  "+ JSON.stringify(  this.concepts));
+        
         for(let i = 0; i < this.concepts.length; i++) {
             this.openmrsRest.getFull("concept/" + this.concepts[i], {v: 'custom:(uuid,display,names:(display,conceptNameType)'}).then((concept) => {
-                let index = this.concepts.indexOf(concept.uuid);
-                this.concepts[index] = this.getConceptWithShortName(concept);
+               // let index = this.concepts.indexOf(concept.uuid);
+               // this.concepts[index] = this.getConceptWithShortName(concept);
+              console.log("fetchConcepts concept="+JSON.stringify(concept)) ;
+              
+              console.log("fetchConcepts concept.name.display="+JSON.stringify(concept.name.display)) ;
+             var  masterData = { "conceptName" : ""  , "dataList" :  []   }  ;
+              
+              masterData.conceptName= concept.name.display ;
+              masterData.dataList =[] ;
+              
+            
+              
+              console.log("fetchConcepts masterDataList Start");
+              this.masterDataList.push(  masterData );
+              
+              this.masterTargetDataList.push(masterData);
+              
+              console.log("fetchConcepts number="+i+"=concept adding masterDataList="+  JSON.stringify(this.masterDataList)  );
+              
+              
             });
         }
+        
+        console.log("fetchConcepts end");
     }
 
     
-    fetchObs() {
-    	
     
-    let concepts = this.config.concepts.split(",");
+    
+    fetchTarget() {
+    	
+    	console.log("fetchTarget start ");
+    
+    	 let concepts = this.config.targetConcepts.split(",");
+    
+    console.log("fetchTarget Concepts  "+ JSON.stringify(  concepts));
+    
     for (let i = 0; i < concepts.length; i++) {
         let concept = concepts[i];
-  
+       
         this.openmrsRest.list('obs', {
             patient: this.config.patientUuid,
             v: 'full',
-            concept: concept
+            concept: concept,
+            limit : 1
         }).then((resp) => {
         	
-        	console.log("responseFromObs="+JSON.stringify(resp));
+        	console.log("fetchTarget responseFromObs="+JSON.stringify(resp));
         	if(resp.results!=null)
         		{
-        		for(let j=0 ; j<resp.results.length  ; j++ )
-        		{
-        			masterData.conceptuuId = resp.results[j].concept.uuid ;
-        			masterData.conceptName = resp.results[j].concept.display ;
-        			masterData.obsValue =  resp.results[j].value ; 
-        			masterData.createdDateObs =  resp.results[j].obsDatetime
+	        		var dataList = [];
+	        		for(let j=0 ; j<resp.results.length  ; j++ )
+	        		{
+	        			var  data = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
+	        			
+	        				        			
+	        			console.log(j+"fetchObs  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
+	        			console.log(j+"fetchObs  resp.results[j].concept.name.display="+ resp.results[j].concept.display  );
+	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].concept.value  );
+	        			console.log(j+"fetchObs  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
+	        		
+	        			
+	        			data.conceptuuId = resp.results[j].concept.uuid ;
+	        			data.conceptName = resp.results[j].concept.name.display ;
+	        			data.obsValue =  resp.results[j].value.toFixed(2) ; 
+	        			data.createdDateObs =  resp.results[j].obsDatetime ;
+	        		
+	        			console.log("fetchTarget data="+ JSON.stringify(data) );
+	        			
+	        			dataList.push(data) ;
+	        			
+	        		}
         		
-        			masterDataList.push(masterData) ;
+	        		console.log("fetchTarget dataList="+ JSON.stringify(dataList) );
+        		 
+	        		
+	        		
+	        		if(dataList.length > 0 )
+        			{ 
+        			
+        			var masterDataListIndex ;
+        			
+        				for(let k=0  ;  k < this.masterDataList.length ; k++)
+        				{
+        					console.log("fetchObs checking="+this.masterDataList[k].conceptName+"=="+dataList[0].conceptName) ;
+        					if(this.masterDataList[k].conceptName==dataList[0].conceptName)
+        					{
+        						console.log("fetchObs condition true");
+        						
+        						masterDataListIndex = k ;
+        						console.log("fetchObs masterDataListIndex="+ k );
+        							break ;		
+        					}
+        				}
+        			
+        				
+        			console.log(i+"fetchObs dataList="+JSON.stringify(dataList));
+        			this.masterDataList[i].dataList =   dataList ;	 	
+        			
+        			
+        			} 
+	        		
+	        		
+	        		
+
+	        			
+	        			console.log("fetchTarget masterTargetDataList="+ JSON.stringify(this.masterTargetDataList) );
         		}
-        		
-        		
-        		}
+        	
+        	
         	
         });
      
     	}
+    
+	console.log("fetchTarget end ");
     }
         
         
-        
-        
-/*    fetchObs() {
+    
+    
+    
+    
+    
+    
+    fetchObs()
+    {
+     console.log("fetchObs start");
+    	
+     let concepts = this.config.concepts.split(",");
       
-           for(let i = 0; i < this.concepts.length; i++) {
-               this.openmrsRest.getFull("obs/").then((obs) => {
-            	   console.log("obsFromRestMy"+JSON.stringify(Jsobs));
-                   this.obss = obs;
-               });
-           }
-       }
-
-   */ 
+        console.log("fetchObs Concepts  "+ JSON.stringify(  concepts));
+        
+        for (let i = 0; i < concepts.length; i++) {
+            let concept = concepts[i];
+           
+            this.openmrsRest.list('obs', {
+                patient: this.config.patientUuid,
+                v: 'full',
+                concept: concept,
+                limit : 3
+            }).then((resp) => {
+            	
+            	console.log("fetchObs responseFromObs="+JSON.stringify(resp));
+            	if(resp.results!=null)
+            		{
+    	        		var dataList = [];
+    	        		for(let j=0 ; j<resp.results.length  ; j++ )
+    	        		{
+    	        			var  data = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
+    	        				
+    	        			console.log(j+"fetchObs  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.name.display="+ resp.results[j].concept.display  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].concept.value  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
+    	        			
+    	        			data.conceptuuId = resp.results[j].concept.uuid ;
+    	        			data.conceptName = resp.results[j].concept.name.display ;
+    	        			data.obsValue =     resp.results[j].value.toFixed(2) ;
+    	        			
+    	        			data.createdDateObs =  resp.results[j].obsDatetime
+    	        		
+    	        			console.log("fetchObs data="+ JSON.stringify(data) );
+    	        			
+    	        			dataList.push(data) ;
+    	        			
+    	        		}
+            		
+    	        		console.log(i+"fetchObs dataList="+ JSON.stringify(this.dataList) );
+            		 
+    	        		if(dataList.length > 0 )
+    	        			{ 
+    	        			
+    	        			var masterDataListIndex ;
+    	        			
+    	        				for(let k=0  ;  i < this.masterDataList.length ; k++)
+    	        				{
+    	        					console.log("fetchObs checking="+this.masterDataList[k].conceptName+"=="+dataList[0].conceptName) ;
+    	        					if(this.masterDataList[k].conceptName==dataList[0].conceptName)
+    	        					{
+    	        						console.log("fetchObs condition true");
+    	        						
+    	        						masterDataListIndex = k ;
+    	        						console.log("fetchObs masterDataListIndex="+ k );
+    	        							break ;		
+    	        					}
+    	        				}
+    	        			
+    	        				
+    	        			console.log(i+"fetchObs dataList="+JSON.stringify(dataList));
+    	        			this.masterDataList[i].dataList =   dataList ;	 	
+    	        			
+    	        			
+    	        			} 
+            		
+    	        			console.log("fetchObs masterDataList="+ JSON.stringify(this.masterDataList) );
+            		}
+            	
+            });
+         
+        	}
+        
+    	
+        console.log("fetchObs end");
+    }
+    
+    
+    
+    
+ 
+          
+  
     
     
     fetchEncounters() {
