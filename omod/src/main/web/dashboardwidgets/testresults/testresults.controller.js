@@ -20,11 +20,14 @@ export default class TestResultsController {
               
         this.openmrsRest.setBaseAppPath("/coreapps");
 
-        this.fetchConcepts();
+      
         this.fetchEncounters();
+        
+        
+        this.fetchConcepts() ;     
         this.fetchTarget();
         this.fetchObs();
-        
+       
     }
 
     
@@ -48,12 +51,11 @@ export default class TestResultsController {
               masterData.conceptName= concept.name.display ;
               masterData.dataList =[] ;
               
-            
-              
+                  
               console.log("fetchConcepts masterDataList Start");
               this.masterDataList.push(  masterData );
               
-              this.masterTargetDataList.push(masterData);
+          
               
               console.log("fetchConcepts number="+i+"=concept adding masterDataList="+  JSON.stringify(this.masterDataList)  );
               
@@ -93,17 +95,17 @@ export default class TestResultsController {
 	        		{
 	        			var  data = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
 	        			
-	        				        			
-	        			console.log(j+"fetchObs  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
-	        			console.log(j+"fetchObs  resp.results[j].concept.name.display="+ resp.results[j].concept.display  );
-	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].concept.value  );
-	        			console.log(j+"fetchObs  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
+	        				
+	        			console.log(j+"fetchTarget  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
+	        			console.log(j+"fetchTarget  resp.results[j].concept.display="+ resp.results[j].concept.display  );
+	        			console.log(j+"fetchTarget  resp.results[j].concept.value="+ resp.results[j].value  );
+	        			console.log(j+"fetchTarget  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
 	        		
 	        			
 	        			data.conceptuuId = resp.results[j].concept.uuid ;
 	        			data.conceptName = resp.results[j].concept.name.display ;
 	        			data.obsValue =  resp.results[j].value.toFixed(2) ; 
-	        			data.createdDateObs =  resp.results[j].obsDatetime ;
+	        			data.target = "target";
 	        		
 	        			console.log("fetchTarget data="+ JSON.stringify(data) );
 	        			
@@ -118,25 +120,47 @@ export default class TestResultsController {
 	        		if(dataList.length > 0 )
         			{ 
         			
-        			var masterDataListIndex ;
-        			
-        				for(let k=0  ;  k < this.masterDataList.length ; k++)
-        				{
-        					console.log("fetchObs checking="+this.masterDataList[k].conceptName+"=="+dataList[0].conceptName) ;
-        					if(this.masterDataList[k].conceptName==dataList[0].conceptName)
-        					{
-        						console.log("fetchObs condition true");
-        						
-        						masterDataListIndex = k ;
-        						console.log("fetchObs masterDataListIndex="+ k );
-        							break ;		
-        					}
-        				}
-        			
-        				
-        			console.log(i+"fetchObs dataList="+JSON.stringify(dataList));
-        			this.masterDataList[i].dataList =   dataList ;	 	
-        			
+	        			var masterDataListIndex=0 ;
+	        			
+	        				for(let k=0  ;  k < this.masterDataList.length ; k++)
+	        				{
+	        					console.log(k+"fetchTarget checking="+this.masterDataList[k].conceptName+"  "+dataList[0].conceptName) ;
+	        					console.log(k+"fetchTarget checking dataList[0].conceptName.toLowerCase()="+dataList[0].conceptName.toLowerCase()+"  this.masterDataList[k].conceptName.toLowerCase()="+this.masterDataList[k].conceptName.toLowerCase()) ;
+	        					
+	        					if( dataList[0].conceptName.toLowerCase().includes(this.masterDataList[k].conceptName.toLowerCase())   )
+	        					{
+	        						console.log("fetchTarget condition true");
+	        						
+	        						masterDataListIndex = k ;
+	        						console.log("fetchTarget masterDataListIndex="+ k );
+	        							break ;		
+	        					}
+	        				}
+	        			
+	        				
+	        				
+	        				if(masterDataListIndex==0 && dataList[0].conceptName=='PEFR target'  )
+	        					{
+	        					  
+		        					for (var z=0 ; z<this.masterDataList.length ; z++)
+		        					
+		        					 if("Peak Expiratory Flow rate".toLowerCase()== this.masterDataList[z].conceptName.toLowerCase() )
+		        					{
+		        						 
+		        						 console.log("fetchTarget condition true Peak Expiratory Flow rate");
+		        						 masterDataListIndex = z ;	 
+		        						 break;
+		        						 
+		        					}
+		        					
+	        					
+	        					}
+	        				
+	        				
+	        				
+	        			console.log(i+"fetchTarget dataList="+JSON.stringify(dataList));
+	        			this.masterDataList[masterDataListIndex].dataList =   dataList ;	 	
+	        			
         			
         			} 
 	        		
@@ -144,7 +168,7 @@ export default class TestResultsController {
 	        		
 
 	        			
-	        			console.log("fetchTarget masterTargetDataList="+ JSON.stringify(this.masterTargetDataList) );
+	        			console.log("fetchTarget masterTargetDataList="+ JSON.stringify(this.masterDataList) );
         		}
         	
         	
@@ -190,8 +214,8 @@ export default class TestResultsController {
     	        			var  data = {conceptuuId:"",  conceptName:"",  obsValue:"" ,  createdDateObs : ""    };
     	        				
     	        			console.log(j+"fetchObs  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
-    	        			console.log(j+"fetchObs  resp.results[j].concept.name.display="+ resp.results[j].concept.display  );
-    	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].concept.value  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.display="+ resp.results[j].concept.display  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].value  );
     	        			console.log(j+"fetchObs  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
     	        			
     	        			data.conceptuuId = resp.results[j].concept.uuid ;
@@ -199,6 +223,7 @@ export default class TestResultsController {
     	        			data.obsValue =     resp.results[j].value.toFixed(2) ;
     	        			
     	        			data.createdDateObs =  resp.results[j].obsDatetime
+    	        			data.target = "";
     	        		
     	        			console.log("fetchObs data="+ JSON.stringify(data) );
     	        			
@@ -208,28 +233,33 @@ export default class TestResultsController {
             		
     	        		console.log(i+"fetchObs dataList="+ JSON.stringify(this.dataList) );
             		 
+    	        	
     	        		if(dataList.length > 0 )
     	        			{ 
     	        			
-    	        			var masterDataListIndex ;
-    	        			
-    	        				for(let k=0  ;  i < this.masterDataList.length ; k++)
-    	        				{
-    	        					console.log("fetchObs checking="+this.masterDataList[k].conceptName+"=="+dataList[0].conceptName) ;
-    	        					if(this.masterDataList[k].conceptName==dataList[0].conceptName)
-    	        					{
-    	        						console.log("fetchObs condition true");
-    	        						
-    	        						masterDataListIndex = k ;
-    	        						console.log("fetchObs masterDataListIndex="+ k );
-    	        							break ;		
-    	        					}
-    	        				}
-    	        			
-    	        				
-    	        			console.log(i+"fetchObs dataList="+JSON.stringify(dataList));
-    	        			this.masterDataList[i].dataList =   dataList ;	 	
-    	        			
+	    	        			var masterDataListIndex=0 ;
+	    	        			
+	    	        				for(let k=0  ;  i < this.masterDataList.length ; k++)
+	    	        				{
+	    	        					console.log("fetchObs checking="+this.masterDataList[k].conceptName+"=="+dataList[0].conceptName) ;
+	    	        					if(this.masterDataList[k].conceptName==dataList[0].conceptName)
+	    	        					{
+	    	        						console.log("fetchObs condition true");
+	    	        						
+	    	        						masterDataListIndex = k ;
+	    	        						console.log("fetchObs masterDataListIndex="+ k );
+	    	        							break ;		
+	    	        					}
+	    	        				}
+	    	        			
+	    	        				
+	    	        			console.log(i+"fetchObs dataList="+JSON.stringify(dataList));
+	    	        		
+	    	        			
+	    	        			for(var q=0  ; q<dataList.length  ; q++ )
+	    	        			{
+	    	        				this.masterDataList[masterDataListIndex].dataList.push(dataList[q]) ;	 	
+	    	        			}
     	        			
     	        			} 
             		

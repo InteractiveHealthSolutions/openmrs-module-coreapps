@@ -1,26 +1,42 @@
 
-<div style="width : 50% ;"> 
 
-<table ng-if="$ctrl.masterDataList.length != 0">
+<table>
  
- 
- 		
- 
-        <tr  ng-repeat="masterData in $ctrl.masterDataList">
-          	
-          	<th>  {{masterData.conceptName}}</th>
-          	
-          	<td ng-repeat="data in masterData.dataList " >   {{data.obsValue}}  
-          	 <span style="float: right; font-size: small; color: #939393">
-                {{$ctrl.widgetsCommons.dateToDaysAgoMessage(data.createdDateObs)}}
-            </span>  </td> 
-          
-        </tr>
+	 <tr> 
+	 		<th></th>
+	 		<th> Target </th>
+	 		<th colspan="3"> Latest Results </th>
+	 	 		
+	 </tr>
+	 
+	  <tr  ng-repeat="masterData in $ctrl.masterDataList">
+	 	
+		 	<td style=" font-weight: bold; ">   {{masterData.conceptName}}  </td>
+		 	
+		 	<td ng-repeat="data in masterData.dataList " > 
+		 	
+		 		<span  style=" font-weight: bold; "ng-if="data.target=='target' " >  {{data.obsValue}} </span>
+		 		<span  ng-if="data.target!='target' " >  {{data.obsValue}} </span>
+		 		
+		 		<span style="float: right; font-size: 13px; color: #939393"  ng-if="data.target!='target' ">
+		                {{$ctrl.widgetsCommons.dateToDaysAgoMessage(data.createdDateObs)}}
+		        </span>
+		        
+		        
+		    </td>
+		 
+	 
+	 </tr>
+	 
+	 
+       
 </table>
+
+
+
 <p ng-if="$ctrl.concepts.length == 0">None Concepts</p>
 
 
-</div>
 
 
 
