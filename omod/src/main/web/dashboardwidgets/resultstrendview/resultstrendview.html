@@ -1,0 +1,105 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.5/chartjs-plugin-annotation.min.js">
+</script>
+
+<style>
+select{
+height:unset;
+max-width:150px;
+}
+table td{
+max-width:200px;
+}
+</style>
+
+<table>
+	<tr>
+		<td valign="top">
+			Select vitals
+	    	<select ng-model="$ctrl.vitalsSelected" id="multiSelect" multiple="multiple">
+	    		<option ng-repeat="obs in $ctrl.vitalsConceptsArray" value="{{obs[0]}}">{{obs[1]}}</option>
+	    	</select>
+	    </td>
+	   	<td>
+	 		<select ng-model='$ctrl.labSelectedConceptId' ng-change='$ctrl.generateLabResultsChart()'>
+	 			<option selected="true" disabled="" value="">Select Lab Results</option>
+	     		<option ng-repeat="obs in $ctrl.labConceptsArray" value="{{obs[0]}}">{{obs[1]}}</option>
+	     	</select>   
+	     	<br><br>
+	     	<select ng-model='$ctrl.daysAgo' ng-change='$ctrl.onTimePeriodChanged();'>
+		 		<option selected="true" disabled="" value="">Filter Time Period</option>
+		 		<option value="-1">All</option>
+		 		<option value=7>Last week</option>
+		 		<option value=14>Last two weeks</option>
+				<option value=90>Last three months</option>
+ 			</select>
+ 			<br><br>
+ 			<a class="service" href="#" ng-click="$ctrl.generateVitalsChart()">Generate chart</a>	     	 	
+     	</td>
+		
+	</tr>
+<!-- 	<tr>
+		<td>
+			<select ng-model='$ctrl.daysAgo' ng-change='$ctrl.onTimePeriodChanged();'>
+		 		<option selected="true" disabled="" value="">Filter Time Period</option>
+		 		<option value="-1">All</option>
+		 		<option value=7>Last week</option>
+		 		<option value=14>Last two weeks</option>
+				<option value=90>Last three months</option>
+ 			</select>
+		</td>
+		<td><a class="service" href="#" ng-click="$ctrl.generateVitalsChart()">Generate chart</a></td>
+	</tr> -->
+</table>
+
+<br/>
+
+<ui-select multiple ng-model="$ctrl.vitalsSelected" theme="bootstrap" ng-disabled="ctrl.disabled" close-on-select="false" style="width: 300px;" title="Choose a color">
+    <ui-select-match placeholder="Select colors..."></ui-select-match>
+    <ui-select-choices repeat="obs in $ctrl.labConceptsArray">
+      {{color}}
+    </ui-select-choices>
+  </ui-select>
+  
+<div style="padding-bottom: 10px">
+        <strong>
+        	Vitals Chart
+        </strong>
+    </div>
+<div ng-if="$ctrl.vitalChartLabels.length > 0">
+    <!-- <div style="padding-bottom: 10px">
+        <strong>
+            {{$ctrl.vitalConceptDisplay.display}}
+        </strong>
+    </div> -->
+    <canvas class="chart chart-line" chart-data="$ctrl.vitalChartData" chart-labels="$ctrl.vitalChartLabels"
+            chart-series="$ctrl.vitalGraphSeries" chart-dataset-override="$ctrl.vitalChartDatasetOverride" chart-options="$ctrl.vitalChartOptions"></canvas>
+</div>
+              
+<div ng-if="$ctrl.vitalChartLabels.length === 0">
+    None
+</div>
+
+<hr>
+
+<div style="padding-bottom: 10px">
+        <strong>
+        	Lab Results Chart
+        </strong>
+    </div>
+
+	<br/>
+
+<div ng-if="$ctrl.labChartLabels.length > 0">
+    <!-- <div style="padding-bottom: 10px">
+        <strong>
+            {{$ctrl.labConceptDisplay.display}}
+        </strong>
+    </div> -->
+    <canvas class="chart chart-line" chart-data="$ctrl.labChartData" chart-labels="$ctrl.labChartLabels"
+            chart-series="$ctrl.labChartSeries" chart-dataset-override="$ctrl.labChartDatasetOverride" chart-options="$ctrl.labChartOptions"></canvas>
+</div>
+              
+<div ng-if="$ctrl.labChartLabels.length === 0">
+    None
+</div>
+

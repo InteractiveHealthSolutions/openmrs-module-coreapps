@@ -1,5 +1,4 @@
-[
-  {
+[ {
     "id": "coreapps.latestObsForConceptList",
     "instanceOf": "coreapps.template.dashboardWidget",
     "description": "coreapps.latestObsForConceptList.app.description",
@@ -23,6 +22,30 @@
       }
     ]
   },
+  {
+   "id": "coreapps.resultstrendview",
+   "instanceOf": "coreapps.template.dashboardWidget",
+   "description": "Test description of results",
+   "order": 10,
+   "config": {
+     "widget": "resultstrendview",
+     "icon": "icon-user-md",
+     "label": "RESULTS TREND VIEW",
+     "maxResults": "100",
+     "maxAge": "1y"
+   },
+   "extensions": [
+     {
+       "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
+       "appId": "coreapps.resultstrendview",
+       "extensionPointId": "patientDashboard.firstColumnFragments",
+       "extensionParams": {
+         "provider": "${project.parent.artifactId}",
+         "fragment": "dashboardwidgets/dashboardWidget"
+       }
+     }
+   ]
+ },
   {
     "id": "coreapps.obsAcrossEncounters",
     "instanceOf": "coreapps.template.dashboardWidget",
