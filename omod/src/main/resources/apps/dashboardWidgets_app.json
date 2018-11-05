@@ -56,7 +56,7 @@
     "config": {
       "widget": "testresults",
       "icon": "icon-user-md",
-      "label": "TEST RESULTS SUMMARY",
+      "label": "PATIENT TARGET SUMMARY",
       "concepts": "00463596-0765-4d57-8433-463aeec1f441,5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,a0b4549e-9bb8-40b0-a4b9-119d9835f998,00465098-0765-4d57-8433-463aeec1f441,5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
        "targetConcepts" : "06000001-3ff4-4d94-9c51-1e295cad43a1,06000002-3ff4-4d94-9c51-1e295cad43a1,06000005-3ff4-4d94-9c51-1e295cad43a1,06000004-3ff4-4d94-9c51-1e295cad43a1,06000003-3ff4-4d94-9c51-1e295cad43a1",
       "maxRecords": "5",
