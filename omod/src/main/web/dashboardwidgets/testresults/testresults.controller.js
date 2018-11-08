@@ -46,9 +46,27 @@ export default class TestResultsController {
               console.log("fetchConcepts concept="+JSON.stringify(concept)) ;
               
               console.log("fetchConcepts concept.name.display="+JSON.stringify(concept.name.display)) ;
-             var  masterData = { "conceptName" : ""  , "dataList" :  []   }  ;
+             var  masterData = { "conceptName" : ""  , "conceptShortName":"" , "dataList" :  []   }  ;
               
+             var conceptShortName="";
+             for(var j=0 ;  j<concept.names.length  ; j++)
+             {
+             	if(concept.names[j].conceptNameType=="SHORT")
+             		{
+             		conceptShortName=concept.names[j].name;
+             		break;
+             		}
+             }
+             
+             
+             if(conceptShortName.trim()=="")
+             {
+            	 conceptShortName =  concept.name.display
+             }
+             
+             
               masterData.conceptName= concept.name.display ;
+              masterData.conceptShortName= conceptShortName ;
               masterData.dataList =[] ;
               
                   
@@ -98,13 +116,13 @@ export default class TestResultsController {
 	        				
 	        			console.log(j+"fetchTarget  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
 	        			console.log(j+"fetchTarget  resp.results[j].concept.display="+ resp.results[j].concept.display  );
-	        			console.log(j+"fetchTarget  resp.results[j].concept.value="+ resp.results[j].value  );
-	        			console.log(j+"fetchTarget  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
+	        			console.log(j+"fetchTarget  resp.results[j].concept.value="+  parseFloat( resp.results[j].value ) );
+	        			console.log(j+"fetchTarget  resp.results[j].concept.obsDatetime="+  resp.results[j].concept.obsDatetime  );
 	        		
 	        			
 	        			data.conceptuuId = resp.results[j].concept.uuid ;
 	        			data.conceptName = resp.results[j].concept.name.display ;
-	        			data.obsValue =  resp.results[j].value.toFixed(2) ; 
+	        			data.obsValue = parseFloat( resp.results[j].value.toFixed(2) ) ; 
 	        			data.target = "target";
 	        		
 	        			console.log("fetchTarget data="+ JSON.stringify(data) );
@@ -127,7 +145,8 @@ export default class TestResultsController {
 	        					console.log(k+"fetchTarget checking="+this.masterDataList[k].conceptName+"  "+dataList[0].conceptName) ;
 	        					console.log(k+"fetchTarget checking dataList[0].conceptName.toLowerCase()="+dataList[0].conceptName.toLowerCase()+"  this.masterDataList[k].conceptName.toLowerCase()="+this.masterDataList[k].conceptName.toLowerCase()) ;
 	        					
-	        					if( dataList[0].conceptName.toLowerCase().includes(this.masterDataList[k].conceptName.toLowerCase())   )
+	        					if( dataList[0].conceptName.toLowerCase().includes(this.masterDataList[k].conceptName.toLowerCase())  ||  
+	        							dataList[0].conceptName.toLowerCase().includes(this.masterDataList[k].conceptShortName.toLowerCase()))
 	        					{
 	        						console.log("fetchTarget condition true");
 	        						
@@ -137,7 +156,7 @@ export default class TestResultsController {
 	        					}
 	        				}
 	        			
-	        				
+	        				/*
 	        				
 	        				if(masterDataListIndex==0 && dataList[0].conceptName=='PEFR target'  )
 	        					{
@@ -154,7 +173,7 @@ export default class TestResultsController {
 		        					}
 		        					
 	        					
-	        					}
+	        					}*/
 	        				
 	        				
 	        				
@@ -215,14 +234,14 @@ export default class TestResultsController {
     	        				
     	        			console.log(j+"fetchObs  resp.results[j].concept.uuid="+ resp.results[j].concept.uuid  );
     	        			console.log(j+"fetchObs  resp.results[j].concept.display="+ resp.results[j].concept.display  );
-    	        			console.log(j+"fetchObs  resp.results[j].concept.value="+ resp.results[j].value  );
+    	        			console.log(j+"fetchObs  resp.results[j].concept.value="+  parseFloat( resp.results[j].value ) );
     	        			console.log(j+"fetchObs  resp.results[j].concept.obsDatetime="+ resp.results[j].concept.obsDatetime  );
     	        			
     	        			data.conceptuuId = resp.results[j].concept.uuid ;
     	        			data.conceptName = resp.results[j].concept.name.display ;
-    	        			data.obsValue =     resp.results[j].value.toFixed(2) ;
+    	        			data.obsValue =   parseFloat(   resp.results[j].value.toFixed(2) ) ;
     	        			
-    	        			data.createdDateObs =  resp.results[j].obsDatetime
+    	        			data.createdDateObs = this.formatDate( resp.results[j].obsDatetime );
     	        			data.target = "";
     	        		
     	        			console.log("fetchObs data="+ JSON.stringify(data) );
@@ -275,11 +294,28 @@ export default class TestResultsController {
     }
     
     
-    
-    
- 
           
-  
+     formatDate(pDate) {
+    	 
+    	 console.log("formatDate start ");
+    	 console.log("formatDate start pDate="+pDate);
+    	 
+    	 var date= new Date(pDate);
+    	 
+    	  var monthNames = [
+    	    "JAN", "FEB", "MAR",
+    	    "APR", "MAY", "JUN", "JUL",
+    	    "AUG", "SEP", "OCT",
+    	    "NOV", "DEC"
+    	  ];
+
+    	  var day = date.getDate();
+    	  var monthIndex = date.getMonth();
+    	  
+
+    	  console.log("formatDate end day + ' ' + monthNames[monthIndex]="+ day + ' ' + monthNames[monthIndex]);
+    	  return day + ' ' + monthNames[monthIndex] ;
+    	}
     
     
     fetchEncounters() {
