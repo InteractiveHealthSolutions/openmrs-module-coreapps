@@ -25,23 +25,28 @@
   {
    "id": "coreapps.resultstrendview",
    "instanceOf": "coreapps.template.dashboardWidget",
-   "description": "Test description of results",
+   "description": "coreapps.resultstrendview.app.description",
    "order": 10,
    "config": {
      "widget": "resultstrendview",
-     "icon": "icon-user-md",
+     "icon": "",
      "label": "RESULTS TREND VIEW",
      "maxResults": "100",
-     "maxAge": "1y"
+     "maxAge": "1y",
+     "vitalsListUuid":"106411d9-f354-4160-8603-4dec659d1bb6",
+     "labResultsUuid":"23281464-74d8-47d9-9a39-7a1f1d7caa4f",
+     "links":{
+     "Go to Page":"/openmrs/coreapps/patientdashboard/resultsTrendView.page?patientId={{patientUuid}}&app=coreapps.resultstrendview"
+     }
    },
    "extensions": [
-     {
+   		{
        "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
        "appId": "coreapps.resultstrendview",
        "extensionPointId": "patientDashboard.firstColumnFragments",
        "extensionParams": {
          "provider": "${project.parent.artifactId}",
-         "fragment": "dashboardwidgets/dashboardWidget"
+         "fragment": "dashboardwidgets/customLinksWidget"
        }
      }
    ]
@@ -137,6 +142,34 @@
         "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardSecondColumn",
         "appId": "coreapps.relationships",
         "extensionPointId": "patientDashboard.secondColumnFragments",
+        "extensionParams": {
+          "provider": "${project.parent.artifactId}",
+          "fragment": "dashboardwidgets/dashboardWidget"
+        }
+      }
+    ]
+  },
+  {
+    "id": "coreapps.programs",
+    "instanceOf": "coreapps.template.dashboardWidget",
+    "description": "coreapps.latestObsForConceptList.app.description",
+    "order": 10,
+    "config": {
+      "widget": "programs",
+      "icon": "icon-user-md",
+      "label": "PROGRAMS",
+      "dateFormat":"dd MMM yyyy",
+      "supportedPrograms":"a24327d2-c601-11e8-a355-529269fb1400",
+      "enableProgramDashboards":"true",
+      "patientUuid":"baf5d732-85fc-4223-a82a-25c32e8edc6e",
+      "maxAge": "1m",
+      "concepts": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA, 5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "extensions": [
+      {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
+        "appId": "coreapps.programs",
+        "extensionPointId": "patientDashboard.firstColumnFragments",
         "extensionParams": {
           "provider": "${project.parent.artifactId}",
           "fragment": "dashboardwidgets/dashboardWidget"
