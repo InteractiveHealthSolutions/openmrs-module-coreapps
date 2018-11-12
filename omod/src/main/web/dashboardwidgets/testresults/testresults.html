@@ -1,0 +1,246 @@
+<div style="margin-top: 10px ;|"> 
+		
+		<div  ng-repeat="masterData in $ctrl.masterDataList" >
+		
+		
+		<div style="width: 45%; margin-right : 3% ; margin-bottom :20px ;  display : block ; float : left ;  border-radius: 10px; border-style: groove; 
+		border-width: 2px;  border-color: gray; "   ng-if="$index==0">
+		
+			
+			<div style="font-size:15px ; font-weight: bold; text-align: center; ">   {{masterData.conceptShortName}}  </div>
+			<div  style=" text-align: center;  font-size:10px ; ">    TARGET  </div>
+			<div  style=" font-weight: bold; font-size: 40px; text-align: center; ">   {{masterData.dataList[0].obsValue}}  </div>
+			<div  style=" text-align: center;  font-size: 10px;  color: white; background-color: gray"> LATEST RESULTS </div>
+		    
+			<div   style=" width: 100%;  height:35px  ; border-bottom-left-radius: 5px;  border-bottom-right-radius: 5px; background-color: #3B3B3B ;  "  >  
+		                   
+		                   
+		         <div ng-repeat="data in masterData.dataList " ng-if="$index > 0">       
+		                   
+		                   
+		                   
+		         		<div style=" width: 33% ; border-bottom-left-radius: 8px; height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==1">
+		
+								<div style="float:left ; width:97% ; "> 
+							
+		                              	<div style="text-align:center ; margin-top:2px ; font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+															
+		
+		            	</div>
+		            
+		            	<div style=" width: 33% ;  height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==2">
+		
+							<div style="float:left ; width:97% ; "> 
+							
+		                              	<div style="text-align:center  ;  margin-top:2px ; font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+										
+								
+															
+		
+		            </div>
+		            
+		           	    <div style=" width: 33% ; border-bottom-right-radius: 8px; height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==3">
+		
+							
+		                              	<div style="text-align:center  ;  margin-top:2px ; font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								
+															
+		
+		            </div>
+		            
+		           
+				 </div>    
+				
+		
+		            
+		    </div>
+				
+		</div>
+		
+		
+		
+		
+		
+		<div style="width: 45%; margin-left : 3% ; margin-bottom :20px ;  display : block ; float : left ;  border-radius: 10px; border-style: groove; 
+		border-width: 2px;  border-color: gray; "   ng-if="$index%2==1  &&  $index > 0">
+			
+			
+			<div style="font-size:15px ; font-weight: bold; text-align: center; ">   {{masterData.conceptShortName}}  </div>
+			<div  style=" text-align: center;  font-size:10px ; ">    TARGET   </div>
+			<div  style=" font-weight: bold; font-size: 40px; text-align: center; ">   {{masterData.dataList[0].obsValue}}  </div>
+			<div  style=" text-align: center;  font-size: 10px;  color: white; background-color: gray"> LATEST RESULTS </div>
+		    
+			<div   style=" width: 100%;  height:35px  ; border-bottom-left-radius: 5px;  border-bottom-right-radius: 5px;  background-color: #3B3B3B ;  "  >  
+		                   
+		         	   <div ng-repeat="data in masterData.dataList " ng-if="$index > 0">       
+		                   
+		         		<div style=" width: 33% ; border-bottom-left-radius: 8px;  height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==1">
+							
+							<div style="float:left ; width:97% ; "> 
+							
+		                              	<div style="text-align:center  ; margin-top:2px ; font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+							</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+											
+															
+		
+		            	</div>
+		            
+		            	<div style=" width: 33% ;  height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==2">
+		
+								<div style="float:left ; width:97% ; "> 
+								
+		                              	<div style="text-align:center  ;  margin-top:2px ;font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+									</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+															
+		
+		            </div>
+		            
+		           	    <div style=" width: 33% ; border-bottom-right-radius: 8px; height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==3">
+		
+							
+		                              	<div style="text-align:center  ; margin-top:2px ;font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								
+															
+		
+		            </div>
+		            
+		           
+				 </div>    
+				
+		
+			
+		            
+		    </div>
+				
+		</div>
+		
+		
+		
+		
+		
+		<div style="width: 45%; margin-right : 3% ; margin-bottom :20px ;  display : block ; float : left ;  border-radius: 10px; border-style: groove; 
+		border-width: 2px;  border-color: gray; "   ng-if="$index%2==0  &&  $index > 0">
+		
+			
+			<div style="font-size:15px ; font-weight: bold; text-align: center; ">   {{masterData.conceptShortName}}  </div>
+			<div  style=" text-align: center;  font-size:10px ; ">    TARGET   </div>
+			<div  style=" font-weight: bold; font-size: 40px; text-align: center; ">   {{masterData.dataList[0].obsValue}}  </div>
+			<div  style=" text-align: center;  font-size: 10px;  color: white; background-color: gray"> LATEST RESULTS </div>
+		    
+			<div   style=" width: 100%;  height:35px  ;  border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;  background-color: #3B3B3B ;  "  >  
+		                   
+		            <div ng-repeat="data in masterData.dataList " ng-if="$index > 0">       
+		                   
+		         		<div style=" width: 33% ; border-bottom-left-radius: 8px; height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==1">
+		
+								<div style="float:left ; width:97% ; "> 
+								
+		                              	<div style="text-align:center  ;  margin-top:2px ; font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+									</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+										
+															
+		
+		            	</div>
+		            
+		            	<div style=" width: 33% ;  height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==2">
+		
+							
+							<div style="float:left ; width:97% ; "> 
+							
+		                              	<div style="text-align:center  ;  margin-top:2px ;font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								</div>
+								
+								<div style="float:left ; width :3% ; height:35px  ; background-color : white ">
+								
+								
+								</div>
+															
+		            	</div>
+		            
+		           	    <div style=" width: 33% ; border-bottom-right-radius: 8px; height:35px   ; display: block  ;   background-color: #3B3B3B ; float:left ;  color: white; "   ng-if="$index==3">
+		
+							
+		                              	<div style="text-align:center  ;  font-size:12px ;" >  {{data.obsValue}} </div>
+		                                <div style="background-color : white ; height: 0.5px ; margin-right: 8px ;margin-left: 8px " > </div>
+		                          		<div  style="font-size:10px ; text-align: center;">   {{data.createdDateObs}} </div>
+								
+								
+															
+		
+		            	</div>
+		            
+		           
+				 </div>    
+				
+		
+				
+		
+		            
+		    </div>
+				
+		</div>
+		
+		
+		
+		</div>
+		
+		
+		
+		<p ng-if="$ctrl.concepts.length == 0">None Concepts</p>
+
+
+</div>
+
+
+
