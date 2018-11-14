@@ -49,6 +49,35 @@
     ]
   },
   {
+   "id": "coreapps.resultstrendview",
+   "instanceOf": "coreapps.template.dashboardWidget",
+   "description": "coreapps.resultstrendview.app.description",
+   "order": 10,
+   "config": {
+     "widget": "resultstrendview",
+     "icon": "",
+     "label": "RESULTS TREND VIEW",
+     "maxResults": "100",
+     "maxAge": "1y",
+     "vitalsListUuid":"106411d9-f354-4160-8603-4dec659d1bb6",
+     "labResultsUuid":"23281464-74d8-47d9-9a39-7a1f1d7caa4f",
+     "links":{
+     "Go to Page":"/openmrs/coreapps/patientdashboard/resultsTrendView.page?patientId={{patientUuid}}&app=coreapps.resultstrendview"
+     }
+   },
+   "extensions": [
+   		{
+       "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
+       "appId": "coreapps.resultstrendview",
+       "extensionPointId": "patientDashboard.firstColumnFragments",
+       "extensionParams": {
+         "provider": "${project.parent.artifactId}",
+         "fragment": "dashboardwidgets/customLinksWidget"
+       }
+     }
+   ]
+ },
+  {
     "id": "coreapps.testResults",
     "instanceOf": "coreapps.template.dashboardWidget",
     "description": "coreapps.testResults.app.description",
