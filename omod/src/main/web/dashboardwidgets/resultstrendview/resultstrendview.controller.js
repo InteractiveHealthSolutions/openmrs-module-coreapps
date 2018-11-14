@@ -42,7 +42,7 @@ export default class ResultsTrendViewController{
                 if(this.labChartLabels.length > 0){
 	                let yAxisId='y-axis-0';
 	                this.labChartDatasetOverride.push({'yAxisID':yAxisId});
-	                this.labChartOptions.scales.yAxes.push({scaleLabel:{display:true,labelString:this.labMetaDataDict[this.labConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.labMetaDataDict[this.labConceptDisplay.uuid].unit) ? '' : (' ('+this.labMetaDataDict[this.labConceptDisplay.uuid].unit+')')) },id:yAxisId,type:'linear',display:true,position:'left'});
+	                this.labChartOptions.scales.yAxes.push({ticks:{beginAtZero:true},scaleLabel:{display:true,labelString:this.labMetaDataDict[this.labConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.labMetaDataDict[this.labConceptDisplay.uuid].unit) ? '' : (' ('+this.labMetaDataDict[this.labConceptDisplay.uuid].unit+')')) },id:yAxisId,type:'linear',display:true,position:'left'});
 	                if( ('hiNormal' in this.labMetaDataDict[this.labConceptDisplay.uuid]) && this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal != null){
 	                	this.labChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:'y-axis-0',borderDash: [2, 2],borderDashOffset: 5,value:this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal,borderColor:'rgba(255,0,0,1)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(255,0,0,1)',fontStyle: 'bold',enabled: true, content: this.labMetaDataDict[this.labConceptDisplay.uuid].shortName+" - high:"+this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal} });
 	            	}
@@ -91,7 +91,7 @@ export default class ResultsTrendViewController{
 	                }
 	                let yAxisId='y-axis-'.concat(i);
 	                this.vitalChartDatasetOverride.push({'yAxisID':yAxisId});
-	                this.vitalChartOptions.scales.yAxes.push({scaleLabel:{display:true,labelString:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit) ? ('') : (' ('+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit+')') )},id:yAxisId,type:'linear',display:true,position:(i === 0 ? 'left' : 'right')});
+	                this.vitalChartOptions.scales.yAxes.push({ticks:{beginAtZero:true},scaleLabel:{display:true,labelString:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit) ? ('') : (' ('+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit+')') )},id:yAxisId,type:'linear',display:true,position:(i === 0 ? 'left' : 'right')});
 	                if( ('hiNormal' in this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid]) && this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal != null){
 	                	this.vitalChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:(i===0 ? 'y-axis-0' : 'y-axis-1'),borderDash: [2, 2],borderDashOffset: 5,value:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal,borderColor:'red',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(255,0,0,1)',fontStyle: 'bold',enabled: true, content: this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName+" - high:"+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal} });
 	            	}
