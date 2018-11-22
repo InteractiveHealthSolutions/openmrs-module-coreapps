@@ -49,7 +49,7 @@
     ]
   },
   {
-    "id": "coreapps.testResults",
+    "id": "coreapps.patientTargets",
     "instanceOf": "coreapps.template.dashboardWidget",
     "description": "coreapps.testResults.app.description",
     "order": 10,
@@ -65,7 +65,7 @@
     "extensions": [
       {
         "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
-        "appId": "coreapps.testResults",
+        "appId": "coreapps.patientTargets",
         "extensionPointId": "patientDashboard.firstColumnFragments",
         "extensionParams": {
           "provider": "${project.parent.artifactId}",
