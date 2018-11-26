@@ -8,8 +8,8 @@ height:unset;
 table td{
 max-width:200px;
 }
-
 </style>
+
 <style>
 * {
     box-sizing: border-box;
@@ -47,6 +47,17 @@ float:left;
     display: table;
     clear: both;
 }
+
+.input-checkbox {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
+}
 </style>
 
 <div>
@@ -54,19 +65,16 @@ float:left;
 		<tr>
 			<td class="centerAlign">
 		    	Select Vital: <select ng-model="$ctrl.vitalSelected" ng-change='$ctrl.generateVitalsChart()'>
-		    		<!-- <option selected="true" disabled="" value="">Select Vital</option> -->
 		    		<option ng-repeat="obs in $ctrl.vitalsConceptsArray" value="{{obs[0]}}">{{obs[1]}}</option>
 		    	</select>
 		    </td>
 		   	<td class="centerAlign">
 		 		Select Lab Result: <select ng-model='$ctrl.labSelectedConceptId' ng-change='$ctrl.generateLabResultsChart()'>
-		 			<!-- <option selected="true" disabled="" value="">Select Lab Results</option> -->
 		     		<option ng-repeat="obs in $ctrl.labConceptsArray" value="{{obs[0]}}">{{obs[1]}}</option>
 		     	</select>   
 		     </td>
 			<td class="centerAlign">
 		     	Filter Time Period: <select ng-model='$ctrl.daysAgo' ng-change='$ctrl.onTimePeriodChanged();'>
-			 		<!-- <option selected="true" disabled="" value="">Filter Time Period</option> -->
 			 		<option value="all">All</option>
 			 		<option value=7>Last week</option>
 			 		<option value=14>Last two weeks</option>
@@ -84,6 +92,9 @@ float:left;
     	<strong>
         	Vitals
         </strong>
+    </div>
+    <div style="padding-bottom: 10px;text-align: center;font-size: 12px;">
+        	<input class="input-checkbox" type="checkbox" ng-disabled="$ctrl.vitalChartOptions.annotation.annotations.length === 0" ng-model="$ctrl.showVitalsAnnotationLabel" ng-change="$ctrl.showHideVitalsAnnotationLabel();"> enable annotation label
     </div>
    	<br/>
 	<div ng-if="$ctrl.vitalChartLabels.length > 0">
@@ -104,15 +115,11 @@ float:left;
       		Lab Results
       	</strong>
   	</div>
-  	
+	<div style="padding-bottom: 10px;text-align: center;font-size: 12px;">
+       	<input class="input-checkbox" type="checkbox" ng-disabled="$ctrl.labChartOptions.annotation.annotations.length === 0" ng-model="$ctrl.showLabResultsAnnotationLabel" ng-change="$ctrl.showHideLabResultsAnnotationLabel();"> enable annotation label
+    </div>
 	<br/>
-	
 	<div ng-if="$ctrl.labChartLabels.length > 0">
-	    <!-- <div style="padding-bottom: 10px">
-	        <strong>
-	            {{$ctrl.labConceptDisplay.display}}
-	        </strong>
-	    </div> -->
 	    <canvas class="chart chart-line" chart-data="$ctrl.labChartData" chart-labels="$ctrl.labChartLabels"
 	            chart-series="$ctrl.labChartSeries" chart-dataset-override="$ctrl.labChartDatasetOverride" chart-colors="$ctrl.colors" chart-options="$ctrl.labChartOptions"></canvas>
 	</div>

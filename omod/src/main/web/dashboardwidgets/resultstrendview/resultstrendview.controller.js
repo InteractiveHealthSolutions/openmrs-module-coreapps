@@ -42,12 +42,12 @@ export default class ResultsTrendViewController{
                 if(this.labChartLabels.length > 0){
 	                let yAxisId='y-axis-0';
 	                this.labChartDatasetOverride.push({'yAxisID':yAxisId});
-	                this.labChartOptions.scales.yAxes.push({scaleLabel:{display:true,labelString:this.labMetaDataDict[this.labConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.labMetaDataDict[this.labConceptDisplay.uuid].unit) ? '' : (' ('+this.labMetaDataDict[this.labConceptDisplay.uuid].unit+')')) },id:yAxisId,type:'linear',display:true,position:'left'});
+	                this.labChartOptions.scales.yAxes.push({ticks:{beginAtZero:true},scaleLabel:{display:true,labelString:this.labMetaDataDict[this.labConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.labMetaDataDict[this.labConceptDisplay.uuid].unit) ? '' : (' ('+this.labMetaDataDict[this.labConceptDisplay.uuid].unit+')')) },id:yAxisId,type:'linear',display:true,position:'left'});
 	                if( ('hiNormal' in this.labMetaDataDict[this.labConceptDisplay.uuid]) && this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal != null){
 	                	this.labChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:'y-axis-0',borderDash: [2, 2],borderDashOffset: 5,value:this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal,borderColor:'rgba(255,0,0,1)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(255,0,0,1)',fontStyle: 'bold',enabled: true, content: this.labMetaDataDict[this.labConceptDisplay.uuid].shortName+" - high:"+this.labMetaDataDict[this.labConceptDisplay.uuid].hiNormal} });
 	            	}
 			    	if( ('lowNormal' in this.labMetaDataDict[this.labConceptDisplay.uuid]) && this.labMetaDataDict[this.labConceptDisplay.uuid].lowNormal != null){
-			    		this.labChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:'y-axis-0',borderDash: [2, 2],borderDashOffset: 5,value:this.labMetaDataDict[this.labConceptDisplay.uuid].lowNormal,borderColor:'rgba(0,255,0,0.3)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(0,255,0,0.3)',fontStyle: 'bold',enabled: true, content: this.labMetaDataDict[this.labConceptDisplay.uuid].shortName+" - low:"+this.labMetaDataDict[this.labConceptDisplay.uuid].lowNormal}});
+			    		this.labChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:'y-axis-0',borderDash: [2, 2],borderDashOffset: 5,value:this.labMetaDataDict[this.labConceptDisplay.uuid].lowNormal,borderColor:'rgba(51,255,0,0.2)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(51,255,0,0.2)',fontStyle: 'bold',enabled: true, content: this.labMetaDataDict[this.labConceptDisplay.uuid].shortName+" - low:"+this.labMetaDataDict[this.labConceptDisplay.uuid].lowNormal}});
 		        	}
                 }
                 this.labChartOptions.scales.xAxes.push({scaleLabel:{display:true, labelString:'Date of Obs'}});
@@ -91,12 +91,12 @@ export default class ResultsTrendViewController{
 	                }
 	                let yAxisId='y-axis-'.concat(i);
 	                this.vitalChartDatasetOverride.push({'yAxisID':yAxisId});
-	                this.vitalChartOptions.scales.yAxes.push({scaleLabel:{display:true,labelString:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit) ? ('') : (' ('+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit+')') )},id:yAxisId,type:'linear',display:true,position:(i === 0 ? 'left' : 'right')});
+	                this.vitalChartOptions.scales.yAxes.push({ticks:{beginAtZero:true},scaleLabel:{display:true,labelString:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName + (this.unitIsEmpty(this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit) ? ('') : (' ('+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].unit+')') )},id:yAxisId,type:'linear',display:true,position:(i === 0 ? 'left' : 'right')});
 	                if( ('hiNormal' in this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid]) && this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal != null){
 	                	this.vitalChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:(i===0 ? 'y-axis-0' : 'y-axis-1'),borderDash: [2, 2],borderDashOffset: 5,value:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal,borderColor:'red',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(255,0,0,1)',fontStyle: 'bold',enabled: true, content: this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName+" - high:"+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].hiNormal} });
 	            	}
 			    	if( ('lowNormal' in this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid]) && this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].lowNormal != null){
-			    		this.vitalChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:(i===0 ? 'y-axis-0' : 'y-axis-1'),borderDash: [2, 2],borderDashOffset: 5,value:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].lowNormal,borderColor:'rgba(0,255,0,0.3)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(0,255,0,0.3)',fontStyle: 'bold',enabled: true, content: this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName+" - low:"+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].lowNormal}});
+			    		this.vitalChartOptions.annotation.annotations.push({type:'line',mode:'horizontal',scaleID:(i===0 ? 'y-axis-0' : 'y-axis-1'),borderDash: [2, 2],borderDashOffset: 5,value:this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].lowNormal,borderColor:'rgba(51,255,0,0.2)',borderWidth:2,'label':{position:'top',backgroundColor: 'rgba(51,255,0,0.2)',fontStyle: 'bold',enabled: true, content: this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].shortName+" - low:"+this.vitalsMetaDataDict[this.vitalConceptDisplay.uuid].lowNormal}});
 		        	}
 	        }        
 	            index++;
@@ -169,25 +169,28 @@ export default class ResultsTrendViewController{
     fetchVitalsConcepts() {
         this.openmrsRest.getFull("concept/" + this.config.vitalsListUuid, {v: 'custom:(uuid,display,names:(display,conceptNameType)'}).then((concept) => {
         	angular.forEach(concept.setMembers, (concept) => {
-    			if(concept.datatype.display == 'Numeric'){
 	        		if(concept.set){
 	        				this.conceptSet[concept.uuid]=[];
 		        			angular.forEach(concept.setMembers, (c) => {
 		        				this.openmrsRest.getFull("concept/" + c.uuid, {v: 'custom:(uuid,display,names:(display,conceptNameType)'}).then((fullConcept) => {
-		        	            	let cShort = this.getConceptWithShortName(fullConcept);
-		        	            	this.vitalsMetaDataDict[cShort.uuid]={'hiNormal':cShort.hiNormal,'lowNormal':cShort.lowNormal,'unit':cShort.units,'shortName':cShort.display};
-		        	            	this.conceptSet[concept.uuid].push(fullConcept.uuid);
+		        	    			if(fullConcept.datatype.display == 'Numeric'){
+			        					let cShort = this.getConceptWithShortName(fullConcept);
+			        	            	this.vitalsMetaDataDict[cShort.uuid]={'hiNormal':cShort.hiNormal,'lowNormal':cShort.lowNormal,'unit':cShort.units,'shortName':cShort.display};
+			        	            	this.conceptSet[concept.uuid].push(fullConcept.uuid);
+		        	    			}
 		        				});
 		        			});
+	        				this.vitalsConceptsArray.push([concept.uuid,concept.display]);
 	                }
 	        		else{
-		        		this.openmrsRest.getFull("concept/" + concept.uuid, {v: 'custom:(uuid,display,names:(display,conceptNameType)'}).then((fullConcept) => {
-			            	let cShort = this.getConceptWithShortName(fullConcept);
-			            	this.vitalsMetaDataDict[cShort.uuid]={'hiNormal':cShort.hiNormal,'lowNormal':cShort.lowNormal,'unit':cShort.units,'shortName':cShort.display};
-		        		});
+	        			if(concept.datatype.display == 'Numeric'){
+			        		this.openmrsRest.getFull("concept/" + concept.uuid, {v: 'custom:(uuid,display,names:(display,conceptNameType)'}).then((fullConcept) => {
+			        			let cShort = this.getConceptWithShortName(fullConcept);
+				            	this.vitalsMetaDataDict[cShort.uuid]={'hiNormal':cShort.hiNormal,'lowNormal':cShort.lowNormal,'unit':cShort.units,'shortName':cShort.display};
+			        		});
+                        	this.vitalsConceptsArray.push([concept.uuid,concept.display]);
+	        			}
 	        		}
-                	this.vitalsConceptsArray.push([concept.uuid,concept.display])
-    			}
             });
         });
     }
@@ -234,6 +237,7 @@ export default class ResultsTrendViewController{
     	this.vitalChartData = [[]];
     	this.vitalGraphSeries = [];
     	this.vitalChartDatasetOverride=[];
+    	this.vitalChartObs = [[]];
     	this.vitalChartOptions =  {
     		    scales: {
     		      yAxes: [],
@@ -243,13 +247,15 @@ export default class ResultsTrendViewController{
     		    	annotations: []
     		    }
     		  };
+    	this.showVitalsAnnotationLabel = true;
     }
     
     resetLabResultsVariables(){
     	this.labChartLabels = [];
     	this.labChartData = [[]];
     	this.labChartSeries = [];
-    	this.labChartDatasetOverride=[];
+    	this.labChartDatasetOverride = [];
+    	this.labChartObs = [];
 		this.labChartOptions =  {
 	 		    scales: {
 	 		      yAxes: [],
@@ -259,6 +265,7 @@ export default class ResultsTrendViewController{
 	 		    	annotations: []
 	 		    }
 		};
+		this.showLabResultsAnnotationLabel = true;
     }
     
     initializeVitalsVariables(){
@@ -282,6 +289,7 @@ export default class ResultsTrendViewController{
         		    	annotations: []
         		    }
         		  };
+        this.showVitalsAnnotationLabel = true;
     }
     
     initializeLabResultsVariables(){
@@ -304,17 +312,30 @@ export default class ResultsTrendViewController{
         		    	annotations: []
         		    }
         		  };
+        this.showLabResultsAnnotationLabel = true;
     }
     
     initializeGeneralVariables(){
     	this.colors = ['#6ABFBF', '#654F1B'],
     	// Max age of obs to display
         this.maxAgeInDays = undefined;
-
         this.daysAgo="all";        
         // Parse maxAge to day count
         this.maxAgeInDays = this.widgetsCommons.maxAgeToDays(this.config.maxAge);
     	this.conceptSet={};
-
+    }
+    
+    showHideVitalsAnnotationLabel(){
+    	angular.forEach(this.vitalChartOptions.annotation.annotations, (c) => {
+    		if(c.label)
+    			this.showVitalsAnnotationLabel ? c.label.enabled = true : c.label.enabled = false;
+		});
+    }
+    
+    showHideLabResultsAnnotationLabel(){
+    	angular.forEach(this.labChartOptions.annotation.annotations, (c) => {
+    		if(c.label)
+    			this.showLabResultsAnnotationLabel ? c.label.enabled = true : c.label.enabled = false;
+		});
     }
 }
