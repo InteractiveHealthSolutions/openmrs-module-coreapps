@@ -8,15 +8,10 @@ import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.coreapps.page.controller.clinicianfacing.PatientPageController;
-import org.openmrs.module.coreapps.web.controller.CoreappsRestController;
 import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
-import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
-import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentConfiguration;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,10 +49,6 @@ public class CustomLinksWidgetFragmentController {
         config.addAttribute("label", app.getLabel());
         config.addAttribute("links", links);
         
-/*        if (appConfig.get("dateFormat") == null) {
-            appConfig.put("dateFormat", adminService.getGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT, "yyyy-MM-dd"));
-        }*/
-
         appConfig.put("locale", Context.getLocale().toString());
         appConfig.put("language", Context.getLocale().getLanguage().toString());
 

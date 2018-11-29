@@ -11,7 +11,7 @@
     jq(function(){
         jq(".tabs").tabs();
 
-        // make sure we reload the page if the location is changes; this custom event is emitted by by the location selector in the header
+        // make sure we reload the page if the location is changed; this custom event is emitted by the location selector in the header
         jq(document).on('sessionLocationChanged', function() {
             window.location.reload();
         });
@@ -24,14 +24,14 @@
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient, activeVisit: activeVisit, appContextModel: appContextModel ]) }
 
     <div class="info-container column">
-            <%
-                    def configs = [:];
-                    if(app.extensions[0].extensionParams.fragmentConfig != null){
-                        configs = app.extensions[0].extensionParams.fragmentConfig;
-                    }
-                    configs << [ patient: patient, patientId: patient.id, app: app.id]
-            %>
-                    ${ ui.includeFragment("coreapps", "dashboardwidgets/dashboardWidget", configs)}
+        <%
+            def configs = [:];
+            if(app.extensions[0].extensionParams.fragmentConfig != null){
+                configs = app.extensions[0].extensionParams.fragmentConfig;
+            }
+            configs << [ patient: patient, patientId: patient.id, app: app.id]
+        %>
+        ${ ui.includeFragment("coreapps", "dashboardwidgets/dashboardWidget", configs)}
             
      </div>
 </div>
