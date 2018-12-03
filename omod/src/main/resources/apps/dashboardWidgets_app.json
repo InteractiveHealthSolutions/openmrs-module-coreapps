@@ -1,5 +1,27 @@
 [
   {
+    "id": "coreapps.patientflags",
+    "instanceOf": "coreapps.template.dashboardWidget",
+    "description": "coreapps.patientflags.app.description",
+    "order": 10,
+    "config": {
+      "widget": "patientflags",
+      "icon": "icon-user-md",
+      "label": "PATIENT FLAGS"
+    },
+    "extensions": [
+      {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.mostRecentVitals.clinicianDashboardFirstColumn",
+        "appId": "coreapps.patientflags",
+        "extensionPointId": "patientDashboard.firstColumnFragments",
+        "extensionParams": {
+          "provider": "${project.parent.artifactId}",
+          "fragment": "dashboardwidgets/dashboardWidget"
+        }
+      }
+    ]
+  },
+  {
     "id": "coreapps.latestObsForConceptList",
     "instanceOf": "coreapps.template.dashboardWidget",
     "description": "coreapps.latestObsForConceptList.app.description",
