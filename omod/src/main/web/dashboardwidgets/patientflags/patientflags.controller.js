@@ -10,13 +10,12 @@ export default class PatientFlagsController {
         
         this.flags = [];
 
-        this.openmrsRest.get("patientflags/eval/" + this.config.patientUuid, {v: 'full'}).then((data) => {
-            this.flags = data.flags;
+        this.openmrsRest.list("patientflags", {patient: this.config.patientUuid, v: 'full'}).then((data) => {
+            this.flags = data.results;
         });
     }
     
     formatFlagMessage(message){
-    	console.log(message);
     	var element = angular.element('<p>'+message+'</p>');
     	return element.html();
     }
